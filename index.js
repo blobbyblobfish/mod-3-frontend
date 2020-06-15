@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(console.log)
             .catch(error => window.alert(error.message))
         
+        //UNFINISHED
         return name
     }
 
@@ -82,6 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderIngredientSelect() {
         const datalist = document.querySelector("#ingredients")
+
+        //UNFINISHED
         datalist.innerHTML = `
         <option value="ingredients.all.each.name"></option>
         `
@@ -147,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             else if (e.target.className === "add-button" && e.target.dataset.status === "opened") {
-            
+                //UNFINISHED
             }
 
             else if (e.target.className === "edit-button" && e.target.dataset.status === "closed") {
@@ -158,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
                 
             else if (e.target.className === "edit-button" && e.target.dataset.status === "opened") {
-            
+                //UNFINISHED
             }
                 
             else if (e.target.className === "delete-button") {
