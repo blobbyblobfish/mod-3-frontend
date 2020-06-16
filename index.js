@@ -3,7 +3,7 @@ console.log("hi")
 document.addEventListener("DOMContentLoaded", () => {
     const COCKTAILS_URL = "http://localhost:3000/api/v1/cocktails/"
     const cocktailsContainer = document.querySelector("#cocktails-container")
-
+    
     function fetchCocktails() {
         fetch(COCKTAILS_URL)
         .then(resp => resp.json())
