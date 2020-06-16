@@ -5,11 +5,20 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div id="utility-bar"></div>
+        <div id="utility-bar">
+            <form>
+                <input type="text" placeholder="Search by ingredient">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <br>
         <div id="cocktails-container">
+            <button class="add-button" data-status="closed">+ Add Cocktail</button>
+            <br>
+            <br>
         </div>
         <script src="index.js"></script>
     </body>
