@@ -6,6 +6,16 @@ img {
     float: right;
 }
 
+.edit-button {
+    float: right;
+    margin: 5px;
+}
+
+.delete-button {
+    float: right;
+    margin: 5px;
+}
+
 .cocktail {
     background: rgb(211,211,211);
     margin: 10px;
