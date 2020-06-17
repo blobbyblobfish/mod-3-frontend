@@ -253,25 +253,49 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
     }
- 
+    //Empty cocktail index
+
+    function emptyCocktailIndex(){
+        cocktailsContainer.innerHTML = ""
+    }
+
+
+
     //Search & Filter Bar
     const searchBar = document.getElementById("search-bar") 
-    console.log(cocktailsArray)
     console.log(searchBar)
     
-        searchBar.addEventListener("submit", (e) => {
-            const searchString = e.target.textinput.value
-            console.log(searchString)
-            const filteredCocktails = cocktailsArray.filter((cocktail) => {
-               return (
-                   cocktail.name.toLowerCase() === searchString.toLowerCase()
-                // cocktail.name.toLowerCase().includes(searchString) ||             
-                // cocktail.ingredient.name.toLowerCase().includes(searchString)
-               )
-            })
-            renderCocktails(filteredCocktails)
-            console.log(filteredCocktails)
+    searchBar.addEventListener("submit", (e) => {
+        const searchString = e.target.textinput.value
+        console.log(searchString)
+        let filteredCocktails = cocktailsArray.filter((cocktail) => {
+            return (cocktail.name.toLowerCase().includes(searchString.toLowerCase()))
         })
+        const newFilteredIngredients = []
+        cocktailsArray.forEach(cocktail =>{
+            cocktail.ingredients.forEach(ingredient => {
+                if(ingredient.name.toLowerCase().includes(searchString.toLowerCase())){
+                    newFilteredIngredients.push(cocktail)
+                }
+            })
+        })
+        
+        filteredCocktails = filteredCocktails.concat(newFilteredIngredients)
+        let idsSeen = []
+        let uniqueCocktails = []
+        filteredCocktails.forEach((cocktail) => { 
+            if(idsSeen.indexOf(cocktail.id) < 0){
+                uniqueCocktails.push(cocktail)
+                idsSeen.push(cocktail.id)
+            }
+        })
+        debugger
+
+        console.log(filteredCocktails)
+        emptyCocktailIndex()        
+        renderCocktails(uniqueCocktails)
+        
+    })
     
 
     fetchCocktails()

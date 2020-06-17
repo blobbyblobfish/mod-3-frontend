@@ -1,27 +1,48 @@
 img {
     max-height: 100px;
+    border-radius: 25px;
 }
 
 .add-button {
     float: right;
+    border-radius: 25px;
+    background-color: grey; /* Green */
+    border: 1px solid black;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 10px 10px 5px grey;
 }
 
 .cocktail {
+    display: flex-row;
+    justify-content: space-between;
     background: rgb(211,211,211);
-    margin: 10px;
-    padding: 20px;
+    margin: 20px;
+    padding: 10px;
     border: 1px solid gray;
+    border-radius: 25px;
+    box-shadow: 10px 10px 5px grey;
 }
 
 #utility-bar {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    border: 5px solid black;
+    border: 1px solid black;
+    border-radius: 25px;
+    box-shadow: 10px 10px 5px grey;
+    
 }
 
 #cocktails-container {
+    justify-content: space-between;
     padding: 20px;
-    border: 5px solid black;
+    border: 1px solid black;
+    border-radius: 25px;
+    box-shadow: 10px 10px 5px grey;
 }
 
