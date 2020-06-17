@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const COCKTAILS_URL = "http://localhost:3000/api/v1/cocktails"
     const INGREDIENTS_URL = "http://localhost:3000/api/v1/ingredients"
     const cocktailsContainer = document.querySelector("#cocktails-container")
+    const searchBar = document.getElementById("search-bar")
+    const cocktailsArray = []
 
     function fetchCocktails() {
         fetch(COCKTAILS_URL)
@@ -10,14 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.log(error.message))
     }
 
-    const cocktailsArray = []
-
     function renderCocktails(cocktails) {
         cocktails.forEach(cocktail => renderCocktail(cocktail))
     }
 
     function renderCocktail(cocktail) {
-        cocktailsArray.push(cocktail)                 //--------//**Array for Search Bar**//--------//
+        cocktailsArray.push(cocktail)
+        
         cocktailDiv = document.createElement("div")
         cocktailDiv.className = "cocktail"
         cocktailDiv.dataset.id = `${cocktail.id}`
@@ -32,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class ="ingredients-inputs"></div>
         <p>${cocktail.directions}</p>
         <button type="button" data-status="closed" class="add-ingredient-button">+ Add Ingredient</button>
-
         `
         cocktailsContainer.append(cocktailDiv)
     }
@@ -210,7 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function addClickListener() {
         document.addEventListener("click", (e) => {
-            
             if (e.target.className === "add-button" && e.target.dataset.status === "closed") {
                 renderCocktailAddForm()
                 e.target.dataset.status = "opened"
@@ -256,52 +255,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 deleteIngredient(id, ingredientLi)
             }
+
+            else if (e.target.textContent === "Back to Index") {
+                cocktailsContainer.innerHTML = `<button class="add-button" data-status="closed">+ Add Cocktail</button><br><br>`       
+                
+                const uniqueCocktailsArray = Array.from(new Set(cocktailsArray))
+                
+                renderCocktails(uniqueCocktailsArray)
+            }
         })
     }
-    //Empty cocktail index
 
-    function emptyCocktailIndex(){
-        cocktailsContainer.innerHTML = ""
-    }
-
-
-
-    //Search & Filter Bar
-    const searchBar = document.getElementById("search-bar") 
-    console.log(searchBar)
-    
+    //Search Bar
     searchBar.addEventListener("submit", (e) => {
         const searchString = e.target.textinput.value
-        console.log(searchString)
-        let filteredCocktails = cocktailsArray.filter((cocktail) => {
-            return (cocktail.name.toLowerCase().includes(searchString.toLowerCase()))
-        })
-        const newFilteredIngredients = []
+        const filteredCocktailsIngredients = []
+        
+        const filteredCocktailsNames = cocktailsArray.filter(cocktail => cocktail.name.toLowerCase().includes(searchString.toLowerCase()))
+
         cocktailsArray.forEach(cocktail =>{
             cocktail.ingredients.forEach(ingredient => {
                 if(ingredient.name.toLowerCase().includes(searchString.toLowerCase())){
-                    newFilteredIngredients.push(cocktail)
+                    filteredCocktailsIngredients.push(cocktail)
                 }
             })
         })
         
-        filteredCocktails = filteredCocktails.concat(newFilteredIngredients)
-        let idsSeen = []
-        let uniqueCocktails = []
-        filteredCocktails.forEach((cocktail) => { 
-            if(idsSeen.indexOf(cocktail.id) < 0){
-                uniqueCocktails.push(cocktail)
-                idsSeen.push(cocktail.id)
-            }
-        })
-        debugger
+        const filteredCocktails = filteredCocktailsNames.concat(filteredCocktailsIngredients)
 
-        console.log(filteredCocktails)
-        emptyCocktailIndex()        
-        renderCocktails(uniqueCocktails)
-        
+        const uniqueSet = new Set(filteredCocktails)
+        const uniqueFilteredCocktails = [...uniqueSet]
+
+        cocktailsContainer.innerHTML = `<div class="cocktail-buttons"><button class="add-button" data-status="closed">+ Add Cocktail</button><button class="back-button">Back to Index</button><br><br></div>`       
+        renderCocktails(uniqueFilteredCocktails)
     })
-    
 
     fetchCocktails()
     addSubmitListener()

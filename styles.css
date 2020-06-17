@@ -1,10 +1,16 @@
 img {
     max-height: 100px;
-    border-radius: 25px;
+}
+
+.back-button {
+    float:left;
+    margin: 20px;
+    align-self: flex-start;
 }
 
 .add-button {
     float: right;
+    align-self: flex-end;
     border-radius: 25px;
     background-color: grey; /* Green */
     border: 1px solid black;
@@ -12,9 +18,8 @@ img {
     padding: 10px 25px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    box-shadow: 10px 10px 5px grey;
+    box-shadow: 5px 5px 5px grey;
 }
 
 .edit-button {
@@ -35,14 +40,12 @@ img {
 }
 
 .cocktail {
-    display: flex-row;
-    justify-content: space-between;
-    background: rgb(211,211,211);
+    background: rgb(228, 228, 228);
     margin: 20px;
-    padding: 10px;
-    border: 1px solid gray;
-    border-radius: 25px;
-    box-shadow: 10px 10px 5px grey;
+    padding: 20px;
+    border: 0.5px solid gray;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px grey;
 }
 
 #utility-bar {
@@ -50,8 +53,8 @@ img {
     justify-content: space-between;
     padding: 20px;
     border: 1px solid black;
-    border-radius: 25px;
-    box-shadow: 10px 10px 5px grey;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px grey;
     
 }
 
@@ -59,7 +62,7 @@ img {
     justify-content: space-between;
     padding: 20px;
     border: 1px solid black;
-    border-radius: 25px;
-    box-shadow: 10px 10px 5px grey;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px grey;
 }
 
