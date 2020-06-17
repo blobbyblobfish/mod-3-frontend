@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const COCKTAILS_URL = "http://localhost:3000/api/v1/cocktails"
     const INGREDIENTS_URL = "http://localhost:3000/api/v1/ingredients"
     const cocktailsContainer = document.querySelector("#cocktails-container")
-    let ingredientCounter = 1
 
     function fetchCocktails() {
         fetch(COCKTAILS_URL)
@@ -61,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <br>
         <input type="submit">
+        <button type="button" class="cancel-button" id="cancel-add-cocktail">cancel</button>
         `
         cocktailsContainer.prepend(form)
     }
@@ -73,12 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="submit">
         <button type="button" class="cancel-button" id="cancel-ingredient">cancel</button>
         `
-
         const ingredientsInputs = cocktailDiv.querySelector(".ingredients-inputs")
         ingredientsInputs.append(inputs)
-
-        // const lastInput = ingredientsInputs.length - 1
-        // ingredientCounter = ingredientCounter + 1
     }
 
     //Edit Form
@@ -89,28 +85,17 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(`${COCKTAILS_URL}/${id}`)
             .then(resp => resp.json())
             .then((cocktail) => {
-
-                // function cocktailIngredients() {
-                //     innerHTML = "<label>Ingredients</label>"
-
-                //     cocktail.ingredients.forEach((ingredient) => {
-                //         innerHTML = innerHTML + `<input type="text" value="${ingredient.name}" ingredient=${ingredient.id} cocktail=${ingredient.cocktail_id}>`
-                //     })
-
-                //     return innerHTML
-                // }
-
                 form.innerHTML = `
-                    <label>Cocktail</label>
-                    <input type="text" value="${cocktail.name}" name="name">
-                    <label>Image</label>
-                    <input type="text" value="${cocktail.image_url}" name="image_url">
-                    <label>Directions</label>
-                    <input type="text" value="${cocktail.directions}" name="directions">
+                <label>Cocktail</label>
+                <input type="text" value="${cocktail.name}" name="name">
+                <label>Image</label>
+                <input type="text" value="${cocktail.image_url}" name="image_url">
+                <label>Directions</label>
+                <input type="text" value="${cocktail.directions}" name="directions">
 
-                    <input type="submit">
-                    <button type="button" class="cancel-button" id="cancel-edit">cancel</button>
-                    `
+                <input type="submit">
+                <button type="button" class="cancel-button" id="cancel-edit">cancel</button>
+                `
             })
             .catch(error => console.log(error.message))
         
@@ -118,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //Create
-    function fetchCreateCocktail(cocktail) {
+    function createCocktail(cocktail) {
         const configObj = {
             method: "POST",
             headers: {
@@ -134,40 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.log(error.message))
     }
 
-    //  function fetchCreateIngredients(cocktail, ingredients) {
-    //     ingredients.forEach(ingredient =>  {
-    //         const ingredientObj = {
-    //             name: ingredient,
-    //             cocktail_id: parseInt(cocktail.id)
-    //         }
-
-    //        const configObj = {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Accept": "application/json"
-    //         },
-    //         body: JSON.stringify(ingredientObj)
-    //        }
-                        
-    //         fetch(INGREDIENTS_URL, configObj)
-    //             .then(resp => resp.json())
-    //             .then(() => {
-    //                 if (ingredients[ingredients.length - 1] === ingredient) {
-    //                 renderNewCocktail(cocktail.id)}
-    //             })
-    //             .catch(error => console.log(error.message))
-    //     })
-    // }
-
-    // function renderNewCocktail(id) {
-    //     fetch(`${COCKTAILS_URL}/${id}`)
-    //         .then(resp => resp.json())
-    //         .then(json => renderCocktail(json))
-    //         .catch(error => console.log(error.message))
-    // }
-
-    function fetchCreateIngredient(ingredient, cocktailDiv) {
+    function createIngredient(ingredient, cocktailDiv) {
         const configObj = {
             method: "POST",
             headers: {
@@ -219,27 +171,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 const name = e.target.name.value
                 const image_url = e.target.image_url.value
                 const directions = e.target.directions.value
-                // let ingredients = []
-
                 const cocktail = {
                     name: name,
                     image_url: image_url,
                     directions: directions
                 }
 
-                // for (let x = 1; x < ingredientCounter + 1; x++) {
-                //     ingredients.push(e.target[`ingredient${x}`].value)
-                // }
-
-                fetchCreateCocktail(cocktail)
+                createCocktail(cocktail)
 
                 e.target.name.value = ""
                 e.target.image_url.value = ""
                 e.target.directions.value = ""
-
-                // for (let x = 1; x < ingredientCounter + 1; x++) {
-                //     e.target[`ingredient${x}`].value = ""
-                // }
             }
 
             else if (e.target.className === "ingredients-inputs") {
@@ -252,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     cocktail_id: cocktailId
                 }
 
-                fetchCreateIngredient(ingredient, cocktailDiv)
+                createIngredient(ingredient, cocktailDiv)
 
                 e.target.name.value = ""
             }
@@ -271,8 +213,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.target.dataset.status = "opened"
             }
 
-            else if (e.target.className === "add-button" && e.target.dataset.status === "opened") {
-                //UNFINISHED
+            else if (e.target.textContent === "cancel" && e.target.id === "cancel-add-cocktail") {
+                document.querySelector(".add-button").dataset.status = "closed"
+                e.target.parentNode.remove()
             }
 
             else if (e.target.className === "edit-button" && e.target.dataset.status === "closed") {

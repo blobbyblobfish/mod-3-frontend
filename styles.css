@@ -16,6 +16,13 @@ img {
     margin: 5px;
 }
 
+.cancel-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: rgb(80,80,80);
+}
+
 .cocktail {
     background: rgb(211,211,211);
     margin: 10px;
