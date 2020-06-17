@@ -11,11 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.log(error.message))
     }
 
+    const cocktailsArray = []
+
     function renderCocktails(cocktails) {
         cocktails.forEach(cocktail => renderCocktail(cocktail))
     }
 
     function renderCocktail(cocktail) {
+        cocktailsArray.push(cocktail)                 //--------//**Array for Search Bar**//--------//
         cocktailDiv = document.createElement("div")
         cocktailDiv.className = "cocktail"
         cocktailDiv.innerHTML = `
@@ -251,6 +254,26 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
  
+    //Search & Filter Bar
+    const searchBar = document.getElementById("search-bar") 
+    console.log(cocktailsArray)
+    console.log(searchBar)
+    
+        searchBar.addEventListener("submit", (e) => {
+            const searchString = e.target.textinput.value
+            console.log(searchString)
+            const filteredCocktails = cocktailsArray.filter((cocktail) => {
+               return (
+                   cocktail.name.toLowerCase() === searchString.toLowerCase()
+                // cocktail.name.toLowerCase().includes(searchString) ||             
+                // cocktail.ingredient.name.toLowerCase().includes(searchString)
+               )
+            })
+            renderCocktails(filteredCocktails)
+            console.log(filteredCocktails)
+        })
+    
+
     fetchCocktails()
     addSubmitListener()
     addClickListener()
