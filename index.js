@@ -165,6 +165,37 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.log(error.message))
     }
 
+    //Update
+    function editCocktail(cocktail, cocktailDiv) {
+        const configObj = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(cocktail)
+        }
+
+        fetch(`${COCKTAILS_URL}/${cocktailDiv.dataset.id}`, configObj)
+            .then(resp => resp.json())
+            // .then(console.log)
+            .then(cocktail => rerenderCocktail(cocktail, cocktailDiv))
+            .catch(error => console.log(error.message))
+    }
+
+    function rerenderCocktail(cocktail, cocktailDiv) {
+        cocktailDiv.innerHTML = `<button class="delete-button" data-cocktail=${cocktail.id}>Delete Cocktail</button>
+        <button class="edit-button" data-cocktail=${cocktail.id} data-status="closed">Edit Cocktail</button>
+        <h1>${cocktail.name}</h1>
+        <img src = ${cocktail.image_url} alt="${cocktail.name}">
+        <br>
+        <ul>${renderIngredients(cocktail)}
+        </ul>
+        <div class ="ingredients-inputs"></div>
+        <p>${cocktail.directions}</p>
+        <button type="button" data-status="closed" class="add-ingredient-button">+ Add Ingredient</button>`
+    }
+
     //Listeners
     function addSubmitListener() {
         document.addEventListener("submit", (e) => {
@@ -203,7 +234,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             else if (e.target.className === "edit-form") {
-                console.log("edit")
+                const name = e.target.name.value
+                const image_url = e.target.image_url.value
+                const directions = e.target.directions.value
+                const cocktailDiv = e.target.parentNode
+
+                const cocktail = {
+                    name: name,
+                    image_url: image_url,
+                    directions: directions
+                }
+
+                editCocktail(cocktail, cocktailDiv)
             }
         })
     }
