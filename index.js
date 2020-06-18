@@ -269,39 +269,28 @@ document.addEventListener("DOMContentLoaded", () => {
     //Search Bar
     searchBar.addEventListener("submit", (e) => {
         const searchString = e.target.textinput.value
-        const filteredCocktailsNames = []
-        const filteredCocktailsIngredients = []
-
-        //Split the searchString
+        const filteredCocktails = []
         const csv = searchString.split(",")
-
-        //Filter 
+        
         for (let x = 0; x < csv.length; x++) {
-            const nameFilter = cocktailsArray.filter(cocktail => cocktail.name.toLowerCase().includes(csv[x].toLowerCase()))
-
-            if (nameFilter.length > 0) {
-                for (let y = 0; y < nameFilter.length; y++) {
-                filteredCocktailsNames.push(nameFilter[y])
+            cocktailsArray.forEach(cocktail =>{
+                if(cocktail.name.toLowerCase().includes(csv[x].toLowerCase())){
+                    filteredCocktails.push(cocktail)
                 }
-            }
-            
+            })
+
             cocktailsArray.forEach(cocktail =>{
                 cocktail.ingredients.forEach(ingredient => {
                     if(ingredient.name.toLowerCase().includes(csv[x].toLowerCase())){
-                        filteredCocktailsIngredients.push(cocktail)
+                        filteredCocktails.push(cocktail)
                     }
                 })
             })
         }
-        
-        //Combine the results
-        const filteredCocktails = filteredCocktailsNames.concat(filteredCocktailsIngredients)
-        const uniqueSet = new Set(filteredCocktails)
-        const uniqueFilteredCocktails = [...uniqueSet]
-
-        debugger
 
         //Render to the page
+        const uniqueSet = new Set(filteredCocktails)
+        const uniqueFilteredCocktails = [...uniqueSet]
         cocktailsContainer.innerHTML = `<div class="cocktail-buttons"><button class="add-button" data-status="closed">+ Add Cocktail</button><button class="back-button">Back to Index</button><br><br></div>`       
         renderCocktails(uniqueFilteredCocktails)
     })
