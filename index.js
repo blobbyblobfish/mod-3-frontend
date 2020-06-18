@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <label>Image</label>
         <input type="text" placeholder="url..." name="image_url">
         <label>Directions</label>
-        <input type="text" placeholder="step 1...step 2..." name="directions">
+        <input type="text" class = "directions" placeholder="step 1...step 2..." name="directions">
         <br>
 
         <br>
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label>Image</label>
                 <input type="text" value="${cocktail.image_url}" name="image_url">
                 <label>Directions</label>
-                <input type="text" value="${cocktail.directions}" name="directions">
+                <input type="text" class="directions" value="${cocktail.directions}" name="directions">
 
                 <input type="submit">
                 <button type="button" class="cancel-button" id="cancel-edit">cancel</button>

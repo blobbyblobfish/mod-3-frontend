@@ -2,12 +2,6 @@ img {
     max-height: 100px;
 }
 
-.back-button {
-    float:left;
-    margin: 20px;
-    align-self: flex-start;
-}
-
 .add-button {
     float: right;
     align-self: flex-end;
@@ -22,14 +16,10 @@ img {
     box-shadow: 5px 5px 5px grey;
 }
 
-.edit-button {
-    float: right;
-    margin: 5px;
-}
-
-.delete-button {
-    float: right;
-    margin: 5px;
+.back-button {
+    float:left;
+    margin: 20px;
+    align-self: flex-start;
 }
 
 .cancel-button {
@@ -39,6 +29,16 @@ img {
     color: rgb(80,80,80);
 }
 
+.delete-button {
+    float: right;
+    margin: 5px;
+}
+
+.edit-button {
+    float: right;
+    margin: 5px;
+}
+
 .cocktail {
     background: rgb(228, 228, 228);
     margin: 20px;
@@ -46,6 +46,10 @@ img {
     border: 0.5px solid gray;
     border-radius: 5px;
     box-shadow: 1px 1px 5px grey;
+}
+
+.directions {
+    width: 50em;
 }
 
 #utility-bar {
