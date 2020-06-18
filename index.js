@@ -178,7 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         fetch(`${COCKTAILS_URL}/${cocktailDiv.dataset.id}`, configObj)
             .then(resp => resp.json())
-            // .then(console.log)
             .then(cocktail => rerenderCocktail(cocktail, cocktailDiv))
             .catch(error => console.log(error.message))
     }
